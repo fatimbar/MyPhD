@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PhD Research — Integrated Framework Map</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#F0EEE9;--teal:#00897B;--teal-l:#E0F2F1;--blue:#1565C0;--blue-l:#E3F2FD;
+  --orange:#E65100;--orange-l:#FFF3E0;--purple:#6A1B9A;--purple-l:#F3E5F5;
+  --red:#C62828;--red-l:#FFEBEE;--gold:#F57F17;--gold-l:#FFFDE7;
+  --text:#1A1A2E;--muted:#5C5C7A;--white:#fff;
+}
+body{background:var(--bg);font-family:'Plus Jakarta Sans',sans-serif;color:var(--text);}
+#hdr{background:var(--white);border-bottom:4px solid var(--teal);padding:14px 36px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.08);}
+#hdr h1{font-family:'Playfair Display',serif;font-size:18px;font-weight:900;}
+#hdr h1 span{color:var(--teal);}
+#hdr p{font-size:11px;color:var(--muted);margin-top:2px;font-weight:500;}
+#hint{font-size:11px;background:var(--teal-l);color:var(--teal);border:1px solid rgba(0,137,123,.3);padding:6px 14px;border-radius:20px;font-weight:700;}
+#map{max-width:1360px;margin:0 auto;padding:32px 36px 80px;}
+.band{background:rgba(255,255,255,.6);border:1px solid rgba(0,0,0,.06);border-radius:22px;padding:20px 22px 18px;margin-bottom:10px;}
+.blbl{font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px;font-family:'Playfair Display',serif;}
+.blbl::after{content:'';flex:1;height:1px;background:rgba(0,0,0,.08);}
+.row{display:flex;gap:18px;justify-content:center;align-items:stretch;}
+.card{background:var(--white);border-radius:18px;padding:18px 16px 14px;box-shadow:0 4px 24px rgba(0,0,0,.09);cursor:pointer;transition:transform .2s,box-shadow .2s;flex:1;min-width:175px;border-top:5px solid;display:flex;flex-direction:column;gap:5px;}
+.card:hover{transform:translateY(-4px);box-shadow:0 8px 40px rgba(0,0,0,.14);}
+.ct{border-top-color:var(--teal);}.cb{border-top-color:var(--blue);}.co{border-top-color:var(--orange);}.cp{border-top-color:var(--purple);}.cr{border-top-color:var(--red);}.cg{border-top-color:var(--gold);}
+.icon{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:25px;margin-bottom:5px;flex-shrink:0;}
+.ct .icon{background:var(--teal-l);}.cb .icon{background:var(--blue-l);}.co .icon{background:var(--orange-l);}.cp .icon{background:var(--purple-l);}.cr .icon{background:var(--red-l);}.cg .icon{background:var(--gold-l);}
+.ctag{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;}
+.ct .ctag{color:var(--teal);}.cb .ctag{color:var(--blue);}.co .ctag{color:var(--orange);}.cp .ctag{color:var(--purple);}.cr .ctag{color:var(--red);}.cg .ctag{color:var(--gold);}
+.ctitle{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--text);line-height:1.2;}
+.csub{font-size:11px;color:var(--muted);line-height:1.5;flex:1;}
+.cbadge{display:inline-flex;font-size:9px;font-weight:700;padding:3px 9px;border-radius:20px;margin-top:4px;align-self:flex-start;}
+.ct .cbadge{background:var(--teal-l);color:var(--teal);}.cb .cbadge{background:var(--blue-l);color:var(--blue);}.co .cbadge{background:var(--orange-l);color:var(--orange);}.cp .cbadge{background:var(--purple-l);color:var(--purple);}.cr .cbadge{background:var(--red-l);color:var(--red);}.cg .cbadge{background:var(--gold-l);color:var(--gold);}
+.conn{display:flex;justify-content:space-around;padding:4px 56px;margin-bottom:4px;gap:16px;}
+.ci{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;flex:1;}
+.cvl{width:2px;height:22px;margin:0 auto;}
+.cpill{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border-radius:20px;white-space:nowrap;text-align:center;transition:transform .15s;}
+.cpill:hover{transform:scale(1.06);}
+.carrd{width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;}
+.hc{display:flex;align-items:center;padding:0 4px;cursor:pointer;flex-direction:column;gap:3px;align-self:center;margin-top:-8px;}
+.hcl{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;}
+.hcrow{display:flex;align-items:center;}
+.hl{height:2px;width:44px;}
+.har{width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;}
+.converge{display:flex;align-items:center;justify-content:center;gap:10px;padding:6px 0 4px;flex-wrap:wrap;}
+.cvpill{font-size:9px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:4px 12px;border-radius:20px;cursor:pointer;transition:transform .15s;border:1px solid transparent;}
+.cvpill:hover{transform:scale(1.06);}
+@keyframes pgold{0%,100%{box-shadow:0 4px 24px rgba(245,127,23,.15);}50%{box-shadow:0 8px 48px rgba(245,127,23,.4);}}
+.oband{background:linear-gradient(135deg,rgba(255,253,231,.95),rgba(255,248,196,.7));border:2px solid rgba(245,127,23,.35);animation:pgold 3s ease-in-out infinite;}
+
+/* POPUP ENHANCED */
+#popup{position:fixed;z-index:500;width:460px;max-height:80vh;background:var(--white);border-radius:20px;padding:0;box-shadow:0 20px 80px rgba(0,0,0,.2);display:none;border-top:6px solid;animation:popIn .2s cubic-bezier(.34,1.56,.64,1);overflow:hidden;display:flex;flex-direction:column;}
+@keyframes popIn{from{opacity:0;transform:scale(.88) translateY(8px);}to{opacity:1;transform:scale(1) translateY(0);}}
+#popup-header{padding:20px 20px 12px;display:flex;align-items:flex-start;gap:12px;position:relative;}
+#popup-close{position:absolute;top:12px;right:16px;background:#F0F0F0;border:none;width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px;color:var(--muted);display:flex;align-items:center;justify-content:center;z-index:10;}
+#popup-close:hover{background:#E0E0E0;color:var(--text);}
+#popup-icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;}
+#popup-tag{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;margin-bottom:3px;}
+#popup-title{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--text);line-height:1.2;}
+#popup-badge{display:inline-flex;font-size:9px;font-weight:700;padding:3px 10px;border-radius:20px;margin-top:4px;}
+#popup-body{overflow-y:auto;padding:0 20px 20px;flex:1;}
+#popup-body .section{margin-bottom:16px;}
+.section-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;color:var(--muted);display:flex;align-items:center;gap:6px;}
+.section-label::after{content:'';flex:1;height:1px;background:#eee;}
+.options-grid{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;}
+.opt-pill{font-size:10px;padding:4px 10px;border-radius:20px;background:#f5f5f5;color:var(--muted);border:1px solid transparent;font-weight:600;white-space:nowrap;}
+.opt-pill.rejected{background:#FFF0F0;color:#c0392b;text-decoration:line-through;border-color:rgba(198,40,40,.2);}
+.opt-pill.selected{background:var(--teal-l);color:var(--teal);border-color:rgba(0,137,123,.4);}
+.just-block{background:#FAFAFA;border-left:4px solid;border-radius:0 10px 10px 0;padding:12px 14px;font-size:12px;line-height:1.6;color:var(--muted);margin-top:6px;}
+.just-block strong{color:var(--text);}
+.impact-block{font-size:12px;color:var(--muted);line-height:1.6;margin-top:4px;}
+#leg{background:var(--white);border-top:1px solid rgba(0,0,0,.07);padding:13px 36px;display:flex;gap:18px;align-items:center;flex-wrap:wrap;position:sticky;bottom:0;z-index:100;}
+#leg strong{font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-right:4px;}
+.li{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);font-weight:600;}
+.ld{width:10px;height:10px;border-radius:3px;}
+</style>
+</head>
+<body>
+<div id="hdr">
+  <div>
+    <h1>Philosophical &amp; Methodological <span>Framework Map</span></h1>
+    <p>AI Adoption in Judicial Systems · PhD Research · Integrated Framework</p>
+  </div>
+  <div id="hint">&#128432; Click any card to explore choices &amp; justifications</div>
+</div>
+
+<div id="map">
+  <!-- BAND 1 -->
+  <div class="band">
+    <div class="blbl" style="color:var(--teal)">&#9312; Philosophical Foundation</div>
+    <div class="row">
+      <div class="card ct" onclick="openNode('ontology',event)">
+        <div class="icon">&#127760;</div>
+        <div class="ctag">Ontology</div>
+        <div class="ctitle">What is Reality?</div>
+        <div class="csub">Reality exists but is stratified — empirical, actual, and real layers coexist</div>
+        <div class="cbadge">Critical Realism</div>
+      </div>
+      <div class="hc" onclick="openEdge('onto-epist',event)">
+        <div class="hcl" style="color:var(--teal)">determines</div>
+        <div class="hcrow"><div class="hl" style="background:var(--teal)"></div><div class="har" style="border-left-color:var(--teal)"></div></div>
+      </div>
+      <div class="card cb" onclick="openNode('epistemology',event)">
+        <div class="icon">&#128300;</div>
+        <div class="ctag">Epistemology</div>
+        <div class="ctitle">How Can We Know?</div>
+        <div class="csub">Knowledge is partial, provisional, inferred from observable effects</div>
+        <div class="cbadge">Critical Realist</div>
+      </div>
+      <div class="hc" onclick="openEdge('epist-axio',event)">
+        <div class="hcl" style="color:var(--blue)">determines</div>
+        <div class="hcrow"><div class="hl" style="background:var(--blue)"></div><div class="har" style="border-left-color:var(--blue)"></div></div>
+      </div>
+      <div class="card ct" onclick="openNode('axiology',event)">
+        <div class="icon">&#9878;</div>
+        <div class="ctag">Axiology</div>
+        <div class="ctitle">Role of Values</div>
+        <div class="csub">Values are transparent — what counts as “good” AI adoption must be stated</div>
+        <div class="cbadge">Value-Explicit</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONN 1-2 -->
+  <div class="conn">
+    <div class="ci" onclick="openEdge('phil-retro',event)">
+      <div class="cvl" style="background:var(--teal)"></div>
+      <div class="cpill" style="background:var(--teal-l);color:var(--teal)">philosophically requires</div>
+      <div class="carrd" style="border-top-color:var(--teal)"></div>
+    </div>
+    <div class="ci" onclick="openEdge('axio-tool1',event)">
+      <div class="cvl" style="background:var(--teal)"></div>
+      <div class="cpill" style="background:var(--teal-l);color:var(--teal)">values govern MCDA criteria</div>
+      <div class="carrd" style="border-top-color:var(--teal)"></div>
+    </div>
+  </div>
+
+  <!-- BAND 2 -->
+  <div class="band">
+    <div class="blbl" style="color:var(--orange)">&#9313; Logic of Inference + Research Tools</div>
+    <div class="row">
+      <div class="card cb" onclick="openNode('retro',event)" style="max-width:220px;">
+        <div class="icon">&#128260;</div>
+        <div class="ctag">Logic of Inference</div>
+        <div class="ctitle">Retroduction</div>
+        <div class="csub">Observe → Explain → Test → Repeat. Cyclical, not linear.</div>
+        <div class="cbadge">Cyclical Logic</div>
+      </div>
+      <div class="hc" onclick="openEdge('retro-tool1',event)">
+        <div class="hcl" style="color:var(--blue)">&harr; lived in practice</div>
+        <div class="hcrow">
+          <div class="har" style="border-right-color:var(--blue)"></div>
+          <div class="hl" style="background:transparent;border-top:2px dashed var(--blue)"></div>
+          <div class="har" style="border-left-color:var(--blue)"></div>
+        </div>
+      </div>
+      <div class="card co" onclick="openNode('tool1',event)">
+        <div class="icon">&#128506;</div>
+        <div class="ctag">Research Tool 1</div>
+        <div class="ctitle">Country-Level MCDA</div>
+        <div class="csub">MCDA across 10 countries — integrated technical + legal-institutional criteria</div>
+        <div class="cbadge">Macro Evaluation</div>
+      </div>
+      <div class="hc" onclick="openEdge('tool1-tool2',event)">
+        <div class="hcl" style="color:var(--orange)">founded &darr;</div>
+        <div class="hcrow"><div class="hl" style="background:var(--orange)"></div><div class="har" style="border-left-color:var(--orange)"></div></div>
+      </div>
+      <div class="card co" onclick="openNode('tool2',event)">
+        <div class="icon">&#128301;</div>
+        <div class="ctag">Research Tool 2 ★ Original</div>
+        <div class="ctitle">Application-Level Assessment</div>
+        <div class="csub">Evaluates individual AI tools from within — novel contribution</div>
+        <div class="cbadge">Micro Evaluation · Novel</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONN 2-3 -->
+  <div class="conn">
+    <div class="ci" onclick="openEdge('tools-gap',event)">
+      <div class="cvl" style="background:var(--red)"></div>
+      <div class="cpill" style="background:var(--red-l);color:var(--red)">revealed the gap (retroductively)</div>
+      <div class="carrd" style="border-top-color:var(--red)"></div>
+    </div>
+    <div class="ci" onclick="openEdge('tools-theories',event)">
+      <div class="cvl" style="background:var(--purple)"></div>
+      <div class="cpill" style="background:var(--purple-l);color:var(--purple)">practice raised questions → theories emerged</div>
+      <div class="carrd" style="border-top-color:var(--purple)"></div>
+    </div>
+  </div>
+
+  <!-- BAND 3 -->
+  <div class="band">
+    <div class="blbl" style="color:var(--red)">&#9314; Gap Discovered + Theoretical Grounding</div>
+    <div class="row">
+      <div class="card cr" onclick="openNode('gap',event)">
+        <div class="icon">&#9888;</div>
+        <div class="ctag">Retroductive Discovery · The Gap</div>
+        <div class="ctitle">Gap in Literature</div>
+        <div class="csub">Existing tools evaluate AI systems either technically OR legally — never integrated. Found during tool development.</div>
+        <div class="cbadge">Technical-only OR Legal-only</div>
+      </div>
+      <div class="card cp" onclick="openNode('theories',event)">
+        <div class="icon">&#128218;</div>
+        <div class="ctag">Theoretical Framework</div>
+        <div class="ctitle">Supporting Theories</div>
+        <div class="csub">Multi-disciplinary lens — innovation diffusion, institutional theory, implementation science & more. Emerged from practice; also interpret results.</div>
+        <div class="cbadge">Emerged Retroductively</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONVERGE -->
+  <div style="padding:7px 0 4px;">
+    <div class="converge">
+      <div class="cvpill" style="background:var(--red-l);color:var(--red);border-color:rgba(198,40,40,.2)" onclick="openEdge('gap-nested',event)">Gap demanded strategy ↓</div>
+      <span style="color:var(--muted);font-size:13px;font-weight:700">+</span>
+      <div class="cvpill" style="background:var(--teal-l);color:var(--teal);border-color:rgba(0,137,123,.2)" onclick="openEdge('phil-nested',event)">Philosophy required depth ↓</div>
+      <span style="color:var(--muted);font-size:13px;font-weight:700">+</span>
+      <div class="cvpill" style="background:var(--purple-l);color:var(--purple);border-color:rgba(106,27,154,.2)" onclick="openEdge('theories-mrt',event)">Theories ground outcome ↓</div>
+    </div>
+    <div style="display:flex;justify-content:center;margin-top:4px;">
+      <div style="width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:10px solid rgba(0,0,0,.13)"></div>
+    </div>
+  </div>
+
+  <!-- BAND 4 -->
+  <div class="band">
+    <div class="blbl" style="color:var(--blue)">&#9315; Research Strategy</div>
+    <div class="row" style="justify-content:center;">
+      <div class="card cb" onclick="openNode('nested',event)" style="max-width:520px;">
+        <div style="display:flex;gap:14px;align-items:flex-start;">
+          <div class="icon" style="flex-shrink:0;">&#127959;</div>
+          <div>
+            <div class="ctag" style="color:var(--blue)">Research Strategy · Demanded by Gap + Philosophy</div>
+            <div class="ctitle" style="font-size:17px;">Nested Analysis</div>
+            <div class="csub" style="font-size:11.5px;"><strong style="color:var(--blue)">Level 1:</strong> MCDA across 10 countries → patterns + classification<br><strong style="color:var(--blue)">Level 2:</strong> 3 in-depth cases → mechanisms + CMO configurations</div>
+            <div class="cbadge" style="margin-top:7px;">Enacts Retroduction · Aligned with Tool 1</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINAL ARROW -->
+  <div style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 0;cursor:pointer;" onclick="openEdge('all-mrt',event)">
+    <div style="width:2px;height:22px;background:var(--gold);"></div>
+    <div style="background:var(--gold-l);color:var(--gold);border:1px solid rgba(245,127,23,.35);font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 16px;border-radius:20px;">Tools + Methodology + Theories collectively produce ↓</div>
+    <div style="width:0;height:0;border-left:8px solid transparent;border-right:8px solid transparent;border-top:10px solid var(--gold);opacity:.8;"></div>
+  </div>
+
+  <!-- BAND 5 -->
+  <div class="band oband">
+    <div class="blbl" style="color:var(--gold)">&#9315; Research Outcome</div>
+    <div class="row" style="justify-content:center;">
+      <div class="card cg" onclick="openNode('mrt',event)" style="max-width:540px;text-align:center;align-items:center;">
+        <div class="icon" style="align-self:center;">&#127919;</div>
+        <div class="ctag" style="color:var(--gold)">Final Research Output</div>
+        <div class="ctitle" style="font-size:20px;">Middle-Range Theory</div>
+        <div class="csub" style="font-size:12.5px;text-align:center;max-width:400px;">“In contexts where conditions A, B, C are present — approach X is likely to succeed in AI adoption within judicial systems.”<br><br>Context-sensitive · Transferable · Bridges theory & practice</div>
+        <div class="cbadge" style="align-self:center;font-size:10px;">Contingent Generalization · Policy-Relevant</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="leg">
+  <strong>Legend:</strong>
+  <div class="li"><div class="ld" style="background:var(--teal)"></div>Philosophy</div>
+  <div class="li"><div class="ld" style="background:var(--blue)"></div>Logic/Methodology</div>
+  <div class="li"><div class="ld" style="background:var(--orange)"></div>Research Tools</div>
+  <div class="li"><div class="ld" style="background:var(--red)"></div>The Gap</div>
+  <div class="li"><div class="ld" style="background:var(--purple)"></div>Theories</div>
+  <div class="li"><div class="ld" style="background:var(--gold)"></div>Outcome</div>
+  <div class="li" style="margin-left:auto;font-size:10px;">— solid = direct &nbsp; ··· dashed = emergent</div>
+</div>
+
+<div id="popup">
+  <div id="popup-header">
+    <div id="popup-icon"></div>
+    <div style="flex:1;">
+      <div id="popup-tag"></div>
+      <div id="popup-title"></div>
+      <div id="popup-badge"></div>
+    </div>
+    <button id="popup-close" onclick="closePopup()">✕</button>
+  </div>
+  <div id="popup-body"></div>
+</div>
+
+<script>
+// ---------- DETAILED CONTENT DATA ----------
+const detailed = {
+  ontology: {
+    icon:'🌐', tag:'Philosophical Foundation — Ontology', title:'Critical Realism', badge:'What is the nature of reality?',
+    color:'var(--teal)', bg:'var(--teal-l)',
+    options:['Realism','Relativism','Critical Realism','Pragmatism'],
+    rejected:['Realism (ignores complexity)','Relativism (no objective ground)','Pragmatism (sidesteps mechanism)'],
+    selected:'Critical Realism',
+    justification:'The phenomenon has a dual nature: AI as technology (measurable, objective) AND institutional adoption (complex, context-dependent). Critical Realism acknowledges both layers and seeks underlying causal mechanisms. It supports moving from description → explanation → evaluation → recommendations.',
+    impact:'Establishes that AI adoption in judicial systems cannot be reduced to technical metrics alone or legal texts alone — both layers are real and must be examined together.'
+  },
+  epistemology: {
+    icon:'🔬', tag:'Philosophical Foundation — Epistemology', title:'Critical Realist Epistemology', badge:'How can we know?',
+    color:'var(--blue)', bg:'var(--blue-l)',
+    options:['Positivism','Interpretivism','Pragmatism','Critical Realist Epistemology'],
+    rejected:['Positivism (ignores unobservable mechanisms)','Interpretivism (too relativist)','Pragmatism (minimises truth claims)'],
+    selected:'Critical Realist Epistemology',
+    justification:'Knowledge is fallible but possible. We infer mechanisms from their effects — perfectly aligned with a stratified ontology. This research will produce pragmatic/empirical, normative/rights-based, and balancing knowledge.',
+    impact:'Because reality is stratified, knowledge must be humble and iterative — which directly justifies Retroduction as the logic of inference.'
+  },
+  axiology: {
+    icon:'⚖️', tag:'Philosophical Foundation — Axiology', title:'Value-Explicit Stance', badge:'Role of values?',
+    color:'var(--teal)', bg:'var(--teal-l)',
+    options:['Value-Free','Value-Laden (Explicit)','Value-Driven'],
+    rejected:['Value-Free (false objectivity)','Value-Driven (biased advocacy)'],
+    selected:'Value-Laden (Explicit)',
+    justification:'This research is explicitly evaluative and normative. The MCDA criteria embody value choices (what makes “good” AI adoption?). These choices are transparent and theoretically justified, not hidden behind false objectivity.',
+    impact:'Directly governs the MCDA criteria — the question “what makes good AI adoption?” is itself a value-laden choice made visible and challengeable.'
+  },
+  retro: {
+    icon:'🔄', tag:'Logic of Inference', title:'Retroduction (Cyclical)', badge:'Observe → Explain → Test → Repeat',
+    color:'var(--blue)', bg:'var(--blue-l)',
+    options:['Deduction','Induction','Abduction','Retroduction (Cyclical)'],
+    rejected:['Deduction (theory-first, misses emergent findings)','Induction (data-first, no mechanism)','Abduction (no systematic testing)'],
+    selected:'Retroduction (Cyclical)',
+    justification:'Combining induction, retroduction, and deduction in iterative cycles: 1) Observe cases, identify patterns, 2) What mechanisms could explain this? 3) Test explanations on other cases. This exactly mirrors the actual research process, where the gap was discovered during tool development.',
+    impact:'Philosophically required by Critical Realism AND actually lived in practice — the researcher moved from observations to explanations before ever naming it “Retroduction.”'
+  },
+  theories: {
+    icon:'📚', tag:'Theoretical Framework', title:'Legal Realism + Supporting Theories', badge:'Multi-disciplinary',
+    color:'var(--purple)', bg:'var(--purple-l)',
+    options:['Formalism (Legal)','Legal Realism','Law & Economics','Critical Legal Studies'],
+    rejected:['Formalism (law as self-contained rules, ignores context)','Law & Economics (overemphasis on efficiency)','Critical Legal Studies (overly political)'],
+    selected:'Legal Realism',
+    justification:'Law in practice ≠ law in books. This lens focuses on what courts actually do, perfectly matching the institutional and empirical focus of the research. Additionally, three supporting theories emerged from practice: Diffusion of Innovations (Rogers), Institutional Theory (North), Implementation Science (Fixsen et al.).',
+    impact:'Provides the interpretive lens for explaining both tools\' results, and grounds the Middle-Range Theory theoretically.'
+  },
+  nested: {
+    icon:'🏟️', tag:'Research Strategy', title:'Nested Analysis', badge:'Two-level design',
+    color:'var(--blue)', bg:'var(--blue-l)',
+    options:['Single Case Study','Multiple Case Studies','Large-N Survey','Nested Analysis'],
+    rejected:['Single Case (no comparison)','Multiple Case (no broad pattern)','Large-N Survey (no depth)'],
+    selected:'Nested Analysis',
+    justification:'Level 1: MCDA on 10 countries → patterns and classification. Level 2: 3 in-depth cases → causal mechanisms and CMO configurations. This design addresses both the breadth required by the Gap and the depth required by Critical Realism.',
+    impact:'Demanded jointly by the philosophical framework and the Gap. Level 1 of the nested design is Tool 1 in application — perfect structural alignment.'
+  },
+  mrt: {
+    icon:'🎯', tag:'Research Outcome', title:'Middle-Range Theory', badge:'Contingent Generalization',
+    color:'var(--gold)', bg:'var(--gold-l)',
+    options:['Statistical Generalization','No Generalization','Contingent Generalization','Analytical Generalization'],
+    rejected:['Statistical (sample→population, not suitable)','No generalization (wasted insight)','Analytical (too detached from practice)'],
+    selected:'Contingent Generalization',
+    justification:'“In contexts where conditions A, B, C are present, approach X is likely to succeed.” Not universal laws, not mere case descriptions — transferable, context-sensitive principles that bridge theory and practice.',
+    impact:'Produced collectively by both assessment tools, nested analysis, and supporting theories. Designed to guide policymakers and judicial systems globally.'
+  },
+  tool1: {
+    icon:'🗺️', tag:'Research Tool 1', title:'Country-Level Assessment (MCDA)', badge:'Macro-Level · 10 Countries',
+    color:'var(--orange)', bg:'var(--orange-l)',
+    options:null,
+    body:'A Multi-Criteria Decision Analysis (MCDA) framework applied across 10 countries to evaluate how judicial systems have adopted AI tools. Unlike all existing frameworks, it integrates BOTH technical AND legal-institutional criteria into one unified assessment.',
+    impact:'First tool developed. Founded Tool 2. Retroductively uncovered the gap in the literature. Its design directly shaped the Nested Analysis strategy.'
+  },
+  tool2: {
+    icon:'🧬', tag:'Research Tool 2 (Original)', title:'Application-Level Assessment', badge:'Micro-Level · Novel Contribution',
+    color:'var(--orange)', bg:'var(--orange-l)',
+    options:null,
+    body:'A novel framework to evaluate individual AI applications from the inside — examining specific tools deployed in judicial contexts across both technical performance and legal-institutional fit. An original scholarly contribution.',
+    impact:'Founded by Tool 1. Fills the internal evaluation gap. Raised practical questions that led retroductively to the Supporting Theories. Both tools feed into the Middle-Range Theory.'
+  },
+  gap: {
+    icon:'⚠️', tag:'Retroductive Discovery · The Gap', title:'Gap in Literature', badge:'Technical-only OR Legal-only',
+    color:'var(--red)', bg:'var(--red-l)',
+    options:null,
+    body:'Existing evaluation frameworks assess AI judicial tools either from a purely technical perspective OR from a purely legal-institutional perspective — but never in an integrated, combined way. No existing framework can evaluate the full picture of AI adoption in judicial systems.',
+    impact:'Critical insight: This gap was discovered DURING the practical development of the two assessment tools — a Retroductive discovery from practice, powerfully validating the chosen methodology.'
+  }
+};
+
+const edges = {
+  'onto-epist':{title:'Ontology → Epistemology',label:'determines',color:'var(--teal)',body:'Critical Realism directly determines the Epistemological stance. Because reality is stratified and complex, our knowledge must be fallibilist — always partial, provisional, open to revision.'},
+  'epist-axio':{title:'Epistemology → Axiology',label:'determines',color:'var(--blue)',body:'Fallibilist Epistemology determines the Axiological stance. Since knowledge is never value-free, the only intellectually honest position is to make value choices explicit and transparent.'},
+  'phil-retro':{title:'Philosophy → Retroduction',label:'philosophically requires',color:'var(--teal)',body:'Critical Realism philosophically requires Retroduction as its logic of inference. To uncover deep underlying mechanisms, one must reason retroductively — from observable effects back to the best explanation of the generating causes.'},
+  'axio-tool1':{title:'Axiology → MCDA Tool',label:'values govern criteria',color:'var(--teal)',body:'The Value-Explicit axiological stance directly governs what criteria are selected for the MCDA tool. The question "what makes good AI adoption?" is itself a value choice — being Value-Explicit means those choices are transparent, justified, and challengeable.'},
+  'retro-tool1':{title:'Retroduction ↔ Both Tools',label:'lived in practice',color:'var(--blue)',body:'Retroduction was not merely adopted as a philosophical label — it was actually lived during tool development. The researcher moved from observations to explanations and back iteratively, before ever calling this process "Retroduction."'},
+  'tool1-tool2':{title:'Tool 1 → Tool 2',label:'founded',color:'var(--orange)',body:'The Country-Level Assessment Tool founded the Application-Level Tool. Evaluating AI adoption at the macro level revealed a deeper question: how do specific AI tools perform when examined from the inside? This led to the creation of Tool 2.'},
+  'tools-gap':{title:'Both Tools → The Gap',label:'revealed retroductively',color:'var(--red)',body:'The Gap emerged DURING the practical process of developing both assessment tools. When building integrated evaluation criteria, the absence of any such framework in existing literature became undeniable — a Retroductive discovery from practice.'},
+  'tools-theories':{title:'Both Tools → Supporting Theories',label:'practice raised questions → theories emerged',color:'var(--purple)',body:'Specific practical questions arose during tool development that existing frameworks could not answer. These questions drove a targeted theoretical search — leading retroductively to the multi-disciplinary set of Supporting Theories.'},
+  'gap-nested':{title:'The Gap → Nested Analysis',label:'gap demanded this strategy',color:'var(--red)',body:'The Gap demanded a research strategy that addresses both levels simultaneously: the macro-level absence of integrated cross-country comparison AND the micro-level absence of internal tool evaluation.'},
+  'phil-nested':{title:'Philosophy → Nested Analysis',label:'philosophy required depth',color:'var(--teal)',body:'Critical Realism does not accept surface-level statistical patterns as sufficient. It requires understanding underlying causal mechanisms — making depth-oriented strategy (Level 2 in-depth cases) necessary alongside the breadth of Level 1 MCDA.'},
+  'theories-mrt':{title:'Supporting Theories → Middle-Range Theory',label:'theoretically grounds outcome',color:'var(--purple)',body:'The Supporting Theories provide the theoretical scaffolding that transforms empirical findings into a Middle-Range Theory — connecting findings to established bodies of knowledge and enabling transferable, context-sensitive generalisation.'},
+  'all-mrt':{title:'All Elements → Middle-Range Theory',label:'collectively produce',color:'var(--gold)',body:'The Middle-Range Theory is the convergent product of the entire framework. Both assessment tools provide the empirical base. Nested Analysis provides methodological rigour and mechanism-level insight. Supporting Theories provide interpretive depth and theoretical grounding.'}
+};
+
+function openNode(id, event) {
+  const d = detailed[id];
+  if (!d) return;
+  const popup = document.getElementById('popup');
+  // Set header
+  document.getElementById('popup-icon').innerHTML = d.icon;
+  document.getElementById('popup-icon').style.background = d.bg;
+  document.getElementById('popup-tag').textContent = d.tag;
+  document.getElementById('popup-tag').style.color = d.color;
+  document.getElementById('popup-title').textContent = d.title;
+  document.getElementById('popup-badge').textContent = d.badge;
+  document.getElementById('popup-badge').style.background = d.bg;
+  document.getElementById('popup-badge').style.color = d.color;
+  popup.style.borderTopColor = d.color;
+
+  // Build body
+  let bodyHTML = '';
+  if (d.options) {
+    bodyHTML += '<div class="section"><div class="section-label">Available Options</div><div class="options-grid">';
+    d.options.forEach(opt => {
+      let cls = 'opt-pill';
+      if (opt === d.selected) cls += ' selected';
+      else if (d.rejected && d.rejected.some(r => r.startsWith(opt))) cls += ' rejected';
+      bodyHTML += `<span class="${cls}">${opt}</span>`;
+    });
+    bodyHTML += '</div></div>';
+    bodyHTML += `<div class="section"><div class="section-label">Why This Was Chosen</div><div class="just-block" style="border-color:${d.color}">${d.justification}</div></div>`;
+    if (d.rejected && d.rejected.length) {
+      bodyHTML += `<div class="section"><div class="section-label">What Was Rejected</div><div class="options-grid">`;
+      d.rejected.forEach(r => bodyHTML += `<span class="opt-pill rejected">${r}</span>`);
+      bodyHTML += '</div></div>';
+    }
+  } else {
+    bodyHTML += `<div class="section"><div class="just-block" style="border-color:${d.color}">${d.body}</div></div>`;
+  }
+  if (d.impact) {
+    bodyHTML += `<div class="section"><div class="section-label">Impact on the Research</div><div class="impact-block">${d.impact}</div></div>`;
+  }
+  document.getElementById('popup-body').innerHTML = bodyHTML;
+  document.getElementById('popup-body').scrollTop = 0;
+
+  positionPopup(event);
+  popup.style.display = 'flex';
+}
+
+function openEdge(id, event) {
+  const e = edges[id];
+  if (!e) return;
+  const popup = document.getElementById('popup');
+  document.getElementById('popup-icon').innerHTML = '🔗';
+  document.getElementById('popup-icon').style.background = '#F5F5F5';
+  document.getElementById('popup-tag').textContent = 'Relationship';
+  document.getElementById('popup-tag').style.color = e.color;
+  document.getElementById('popup-title').textContent = e.title;
+  document.getElementById('popup-badge').textContent = e.label;
+  document.getElementById('popup-badge').style.background = '#F5F5F5';
+  document.getElementById('popup-badge').style.color = e.color;
+  popup.style.borderTopColor = e.color;
+  document.getElementById('popup-body').innerHTML = `<div class="section"><div class="just-block" style="border-color:${e.color}">${e.body}</div></div>`;
+  positionPopup(event);
+  popup.style.display = 'flex';
+}
+
+function positionPopup(event) {
+  const popup = document.getElementById('popup');
+  popup.style.display = 'flex';
+  const pw = 460, ph = popup.offsetHeight || 500;
+  let l = event.pageX + 20, t = event.pageY - 100;
+  if (l + pw > window.innerWidth - 20) l = event.pageX - pw - 20;
+  if (t + ph > window.innerHeight + window.scrollY - 20) t = event.pageY - ph - 20;
+  if (t < window.scrollY + 70) t = window.scrollY + 70;
+  popup.style.left = l + 'px';
+  popup.style.top = t + 'px';
+  popup.style.display = 'flex';
+}
+
+function closePopup() {
+  document.getElementById('popup').style.display = 'none';
+}
+
+document.addEventListener('click', function(e) {
+  const popup = document.getElementById('popup');
+  if (popup.style.display === 'flex' && !popup.contains(e.target) && !e.target.closest('.card') && !e.target.closest('.hc') && !e.target.closest('.ci') && !e.target.closest('.cvpill') && !e.target.closest('.converge')) {
+    popup.style.display = 'none';
+  }
+});
+</script>
+</body>
+</html>
